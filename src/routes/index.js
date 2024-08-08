@@ -8,5 +8,6 @@ const favoritesRoute = require('./favorites.route')
 const bannersRoute = require('./banners.route')
 const testimonialsRoute = require('./testimonials.route')
 const contactsRoute = require('./contacts.route')
+const searchRoute = require('./search.route')
 
-module.exports = [authRoute, placesRoute, usersRoute, categoriesRoute, eventsRoute, cartsRoute, favoritesRoute, bannersRoute, testimonialsRoute, contactsRoute]
+module.exports = [authRoute, placesRoute, usersRoute, categoriesRoute, eventsRoute, cartsRoute, favoritesRoute, bannersRoute, testimonialsRoute, contactsRoute, searchRoute]

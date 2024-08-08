@@ -61,7 +61,35 @@ const createEvent = async (req, res, next) => {
 
 const showEvents = async (req, res, next) => {
     try {
-        const events = await prisma.events.findMany({
+        const { placeId, startDate, endDate, categoryId, minPrice, maxPrice } = req.query;
+
+        const filters = {};
+
+        if (placeId) {
+            filters.placeId = placeId;
+        }
+
+        if (startDate && endDate) {
+            filters.datetime = {
+                gte: new Date(startDate),
+                lte: new Date(endDate),
+            };
+        } else if (startDate) {
+            filters.datetime = {
+                gte: new Date(startDate),
+            };
+        } else if (endDate) {
+            filters.datetime = {
+                lte: new Date(endDate),
+            };
+        }
+
+        if (categoryId) {
+            filters.categoryId = categoryId;
+        }
+
+        let events = await prisma.events.findMany({
+            where: filters,
             select: {
                 id: true,
                 name: true,
@@ -75,11 +103,29 @@ const showEvents = async (req, res, next) => {
                 category: true,
             }
         });
-        res.json({ data: events })
+
+        // Calculate minimum price for each event and apply price filtering
+        events = await Promise.all(events.map(async event => {
+            const place = event.place;
+            const minEventPrice = place.firstRowPrice - place.priceDifByRow * (place.rows - 1);
+            return {
+                ...event,
+                minEventPrice,
+            };
+        }));
+
+        if (minPrice) {
+            events = events.filter(event => event.minEventPrice >= parseFloat(minPrice));
+        }
+        if (maxPrice) {
+            events = events.filter(event => event.minEventPrice <= parseFloat(maxPrice));
+        }
+
+        res.json({ data: events });
     } catch (error) {
         next(error);
     }
-}
+};
 
 const showEventById = async (req, res, next) => {
     try {
@@ -270,7 +316,7 @@ const addToFavorite = async (req, res, next) => {
             },
         });
         res.json({ message: "Event added to favorites successfully" });
-        
+
     } catch (error) {
         next(error);
     }

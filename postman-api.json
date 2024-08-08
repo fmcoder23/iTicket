@@ -401,7 +401,47 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:4000/api/events"
+						"url": {
+							"raw": "http://localhost:4000/api/events?categoryId=bf221b08-ea74-4d92-9cbe-43fa4710da2d&minPrice=200000&maxPrice=250000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"events"
+							],
+							"query": [
+								{
+									"key": "placeId",
+									"value": "6bfe1eb0-538b-4bcd-9bc5-5a238e7286ac",
+									"disabled": true
+								},
+								{
+									"key": "startDate",
+									"value": "25 August 2024",
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": "15 September 2024",
+									"disabled": true
+								},
+								{
+									"key": "categoryId",
+									"value": "bf221b08-ea74-4d92-9cbe-43fa4710da2d"
+								},
+								{
+									"key": "minPrice",
+									"value": "200000"
+								},
+								{
+									"key": "maxPrice",
+									"value": "250000"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -876,6 +916,37 @@
 							}
 						],
 						"url": "http://localhost:4000/api/contacts"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/search?query=baron",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "baron"
+								}
+							]
+						}
 					},
 					"response": []
 				}
