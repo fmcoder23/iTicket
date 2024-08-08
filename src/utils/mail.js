@@ -33,4 +33,14 @@ async function sendVerMail(to) {
     })
 }
 
-module.exports = { sendMail, sendVerMail };
+async function sendResetPass(to) {
+    const info = await transporter.sendMail({
+        from: config.mailUser,
+        to,
+        subject: "Link to reset your password",
+        text: "Here is the link to rest your password: \n \n Click",
+        html: `Here is the link to reset your password <br><br> <a href="https://kun.uz">Click</a>`,
+    })
+}
+
+module.exports = { sendMail, sendVerMail, sendResetPass };

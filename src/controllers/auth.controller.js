@@ -2,7 +2,7 @@ const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const otpGenerator = require('otp-generator');
 const { prisma } = require('../utils/connection');
-const { sendMail } = require('../utils/mail');
+const { sendMail, sendResetPass } = require('../utils/mail');
 const { createToken } = require('../utils/jwt');
 
 const register = async (req, res, next) => {
@@ -142,7 +142,7 @@ const adminLogin = async (req, res, next) => {
         if (!isPasswordValid) {
             return res.status(400).json({ message: "Invalid email or password" });
         }
-        
+
         const token = createToken({ id: user.id, isAdmin: user.isAdmin })
         res.json({ message: "Admin logged in successfully", token });
 
@@ -151,4 +151,46 @@ const adminLogin = async (req, res, next) => {
     }
 }
 
-module.exports = { register, verify, login, adminLogin };
+const forgotPassword = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        const schema = Joi.object({
+            email: Joi.string().email().required()
+        })
+        const { error } = schema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.message });
+        }
+
+        await sendResetPass(email);
+        res.json({ message: "Reset password link has been sent to your email" })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const resetPassword = async (req, res, next) => {
+    try {
+        const { email, password } = req.body;
+
+        const schema = Joi.object({
+            email: Joi.string().email().required(),
+            password: Joi.string().min(5).required()
+        })
+        const { error } = schema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.message });
+        }
+
+        await prisma.users.update({
+            where: { email },
+            data: { password: await bcrypt.hash(password, 12) }
+        })
+        res.json({ message: "Password reset successfully" })
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+module.exports = { register, verify, login, adminLogin, resetPassword, forgotPassword };

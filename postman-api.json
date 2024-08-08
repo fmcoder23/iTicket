@@ -52,7 +52,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"fmcoder23@gmail.com\",\n    \"password\": \"55555\"\n}",
+							"raw": "{\n    \"email\": \"fmcoder23@gmail.com\",\n    \"password\": \"44444\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -115,6 +115,42 @@
 							}
 						},
 						"url": "http://localhost:4000/api/admin/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"fmcoder23@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/auth/forgot"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"fmcoder23@gmail.com\",\n    \"password\": \"44444\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/auth/reset"
 					},
 					"response": []
 				}
