@@ -1,0 +1,885 @@
+{
+	"info": {
+		"_postman_id": "6cff457c-b9bf-42a2-9979-b6cc3934276a",
+		"name": "iTicket API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "34603333"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Admin\",\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"55555\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"code\": \"540373\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/auth/verify"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"fmcoder23@gmail.com\",\n    \"password\": \"55555\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<style type=\"text/css\">",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+									"    .tftable tr {background-color:#ffffff;}",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+									"    .tftable tr:hover {background-color:#e0ffff;}",
+									"</style>",
+									"",
+									"<table class=\"tftable\" border=\"1\">",
+									"    <tr>",
+									"        <th>Message</th>",
+									"        <th>Token</th>",
+									"    </tr>",
+									"    <tr>",
+									"        <td>{{response.message}}</td>",
+									"        <td>{{response.token}}</td>",
+									"    </tr>",
+									"</table>",
+									"`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    return { response: pm.response.json() }",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"55555\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/admin/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/users/25455b76-08b6-4925-bfe1-bf8b032fdd19"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Delete me\",\n    \"email\": \"delete@gmail.com\",\n    \"password\": \"55555\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"isAdmin\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/users/22f2431b-3182-44c4-96e5-9f7a8fa1174d"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/users/26e13818-af52-4126-bac4-1755fceb2e2e"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Places",
+			"item": [
+				{
+					"name": "Get Places",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/places"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Place",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Turkiston Saroyi\",\n    \"rows\": 15,\n    \"columns\": 25,\n    \"priceDifByRow\": 20000,\n    \"firstRowPrice\": 500000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/places"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Place",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Xalqlar Do'stligi Saroyi\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/places/6bfe1eb0-538b-4bcd-9bc5-5a238e7286ac"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Place",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/places/d70661cb-f803-44c2-bb5a-98da4bc21c6c"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/categories/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/categories/2473ec1d-dc33-4428-b61d-e92c0383d65b"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Delete me\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/categories"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Theater\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/categories/7da5d7b9-0b0a-4fef-a382-9a4c420a0085"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/categories/79160206-c3b2-48cf-a9c3-fa8f73092029"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/events"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/events/c1bc9d94-1eba-40b5-9fba-0bee22e174c7"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Bravo 2024",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero nostrum, nisi doloremque pariatur consequatur ipsum asperiores atque accusamus aperiam, impedit nesciunt perspiciatis itaque et voluptatibus! Assumenda ex obcaecati repellat",
+									"type": "text"
+								},
+								{
+									"key": "datetime",
+									"value": "1 September 2024 12:00",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/Users/pc/Desktop/testfiles/bravo.jpeg"
+								},
+								{
+									"key": "phone1",
+									"value": "+998994565432",
+									"type": "text"
+								},
+								{
+									"key": "phone2",
+									"value": "+998997777777",
+									"type": "text"
+								},
+								{
+									"key": "placeId",
+									"value": "549c9d2a-17ff-4250-8c45-4334fbbe6780",
+									"type": "text"
+								},
+								{
+									"key": "categoryId",
+									"value": "bf221b08-ea74-4d92-9cbe-43fa4710da2d",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:4000/api/events"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "datetime",
+									"value": "20 August 2024 21:00",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:4000/api/events/c1bc9d94-1eba-40b5-9fba-0bee22e174c7"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/events/f760c78e-4af9-49b9-a545-7b49a10cc2ba"
+					},
+					"response": []
+				},
+				{
+					"name": "Add to Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyZjI0MzFiLTMxODItNDRjNC05NmU1LTlmN2E4ZmExMTc0ZCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwMjg1NzYsImV4cCI6MTcyMzExNDk3Nn0.mdoh8OEoH93qBK0SakIbuRjYCtkJ1NEFNi7e_5i_md4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rowNumber\": 6,\n    \"quantity\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/events/bd9526db-9ac2-4481-8dae-79a2c2bc7aca/add-to-cart"
+					},
+					"response": []
+				},
+				{
+					"name": "Add to Favorite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzNGQ3N2I4LTViZTQtNDRhMS1hNDM1LTRlMWY5MTBjZGE3MiIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwOTQyNzQsImV4cCI6MTcyMzE4MDY3NH0.QGg6MDI04HKzHHdMRMnzih58VTvvfEAwx-HBEU_0Jes",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/events/bd9526db-9ac2-4481-8dae-79a2c2bc7aca/add-to-favorite"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "Get Cart",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyZjI0MzFiLTMxODItNDRjNC05NmU1LTlmN2E4ZmExMTc0ZCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwMjg1NzYsImV4cCI6MTcyMzExNDk3Nn0.mdoh8OEoH93qBK0SakIbuRjYCtkJ1NEFNi7e_5i_md4",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/carts"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cart",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzAwMjQ0NywiZXhwIjoxNzIzMDg4ODQ3fQ.ytYhMu2h5oKe3v1_K4qIe8GrdNrqJNbzXZ5ibqGsyho",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rowNumber\": 19,\n    \"quantity\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/carts/016983e4-e401-4f80-a38a-3a002d47ae29"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyZjI0MzFiLTMxODItNDRjNC05NmU1LTlmN2E4ZmExMTc0ZCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwMjg1NzYsImV4cCI6MTcyMzExNDk3Nn0.mdoh8OEoH93qBK0SakIbuRjYCtkJ1NEFNi7e_5i_md4",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/carts/b51836f8-f7dc-47c1-b63f-ae3279bf36a0"
+					},
+					"response": []
+				},
+				{
+					"name": "Buy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyZjI0MzFiLTMxODItNDRjNC05NmU1LTlmN2E4ZmExMTc0ZCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwMjg1NzYsImV4cCI6MTcyMzExNDk3Nn0.mdoh8OEoH93qBK0SakIbuRjYCtkJ1NEFNi7e_5i_md4",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/carts/buy"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favorites",
+			"item": [
+				{
+					"name": "Get Favorites",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzNGQ3N2I4LTViZTQtNDRhMS1hNDM1LTRlMWY5MTBjZGE3MiIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwOTQyNzQsImV4cCI6MTcyMzE4MDY3NH0.QGg6MDI04HKzHHdMRMnzih58VTvvfEAwx-HBEU_0Jes",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/favorites"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Favorite",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzNGQ3N2I4LTViZTQtNDRhMS1hNDM1LTRlMWY5MTBjZGE3MiIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwOTQyNzQsImV4cCI6MTcyMzE4MDY3NH0.QGg6MDI04HKzHHdMRMnzih58VTvvfEAwx-HBEU_0Jes",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/favorites/21a09413-5be2-4b76-8faa-ae41e09087f3"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Banners",
+			"item": [
+				{
+					"name": "Get Banners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/banners"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Banner",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzA5NTE4OCwiZXhwIjoxNzIzMTgxNTg4fQ.NfyUeTcCPqOgjWYcZJRpS3ANGS94rVFnJQMsZldRZi4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/Users/pc/Desktop/testfiles/elmurod banner.jpeg"
+								},
+								{
+									"key": "eventId",
+									"value": "c1bc9d94-1eba-40b5-9fba-0bee22e174c7",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:4000/api/banners"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Banner",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzA5NTE4OCwiZXhwIjoxNzIzMTgxNTg4fQ.NfyUeTcCPqOgjWYcZJRpS3ANGS94rVFnJQMsZldRZi4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/Users/pc/Desktop/testfiles/elm banner.jpeg"
+								}
+							]
+						},
+						"url": "http://localhost:4000/api/banners/46b41cc1-8e8d-47d3-b5ba-9316f4a9ae39"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Banner",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzA5NTE4OCwiZXhwIjoxNzIzMTgxNTg4fQ.NfyUeTcCPqOgjWYcZJRpS3ANGS94rVFnJQMsZldRZi4",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/banners/46b41cc1-8e8d-47d3-b5ba-9316f4a9ae39"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Testimonials",
+			"item": [
+				{
+					"name": "Get Testimonials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/testimonials"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Testimonial",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1NDU1Yjc2LTA4YjYtNDkyNS1iZmUxLWJmOGIwMzJmZGQxOSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwOTgyNjQsImV4cCI6MTcyMzE4NDY2NH0.NJ6wAmM51fXr_nYvBRlNCZjS6KS5Z3ECmYR9roXEKak",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/Users/pc/Desktop/Necessary documents for universities/photo west.jpg"
+								},
+								{
+									"key": "text",
+									"value": "I really liked the ticket service. It is next generation of Uzbekistan where solution meets automation. Thank you all - buyticket.uz Team.",
+									"type": "text"
+								},
+								{
+									"key": "rank",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:4000/api/testimonials"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Testimonial",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1NDU1Yjc2LTA4YjYtNDkyNS1iZmUxLWJmOGIwMzJmZGQxOSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwOTgyNjQsImV4cCI6MTcyMzE4NDY2NH0.NJ6wAmM51fXr_nYvBRlNCZjS6KS5Z3ECmYR9roXEKak",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "text",
+									"value": "I really liked the ticket service. It is next generation of Uzbekistan where solution meets automation. Thank you all - buyticket.uz Team.",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:4000/api/testimonials/b2bbba72-cd7b-4f23-92dd-0f253e2d70df"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Testimonial",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1NDU1Yjc2LTA4YjYtNDkyNS1iZmUxLWJmOGIwMzJmZGQxOSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwOTgyNjQsImV4cCI6MTcyMzE4NDY2NH0.NJ6wAmM51fXr_nYvBRlNCZjS6KS5Z3ECmYR9roXEKak",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/testimonials/b2bbba72-cd7b-4f23-92dd-0f253e2d70df"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "Send Contact (message)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1NDU1Yjc2LTA4YjYtNDkyNS1iZmUxLWJmOGIwMzJmZGQxOSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjMwOTgyNjQsImV4cCI6MTcyMzE4NDY2NH0.NJ6wAmM51fXr_nYvBRlNCZjS6KS5Z3ECmYR9roXEKak",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"+998938431029\",\n    \"message\": \"Ticket download bomayaptiyu normalniy ishlasalaring bomidimi???\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/contacts"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contacts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiZDliNTBhLWJjYmEtNGUxZS05MmMyLTkxNjUzMWYyNTA4YiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcyMzA5NTE4OCwiZXhwIjoxNzIzMTgxNTg4fQ.NfyUeTcCPqOgjWYcZJRpS3ANGS94rVFnJQMsZldRZi4",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/api/contacts"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
