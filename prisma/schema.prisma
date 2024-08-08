@@ -1,0 +1,192 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id        String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  fullname  String
+  email     String
+  password  String
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  favorites    Favorites[]
+  carts        Carts[]
+  testimonials Testimonials[]
+  contacts     Contacts[]
+  tickets      Tickets[]
+
+  @@id([id])
+  @@unique([email])
+  @@map("users")
+}
+
+model Otps {
+  id        String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  fullname  String
+  email     String
+  password  String
+  code      String
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id])
+  @@unique([email])
+  @@map("otps")
+}
+
+model Banners {
+  id        String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  photo     String
+
+  eventId   String   @db.Uuid
+  event Events @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([id])
+  @@map("banners")
+}
+
+model Places {
+  id            String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String
+  rows          Int
+  columns       Int
+  priceDifByRow Int
+  firstRowPrice Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  events Events[]
+
+  @@id([id])
+  @@unique([name])
+  @@map("places")
+}
+
+model Categories {
+  id        String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  events Events[]
+
+  @@id([id])
+  @@unique([name])
+  @@map("categories")
+}
+
+model Events {
+  id          String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String
+  description String
+  datetime    DateTime
+  photo       String
+  phone1      String
+  phone2      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  placeId String @db.Uuid
+  place   Places @relation(fields: [placeId], references: [id], onUpdate: NoAction, onDelete: Cascade)
+
+  categoryId String     @db.Uuid
+  category   Categories @relation(fields: [categoryId], references: [id], onUpdate: NoAction, onDelete: Cascade)
+
+  favorites     Favorites[]
+  carts         Carts[]
+  bookedTickets Tickets[]
+  banners Banners[]
+
+  @@id([id])
+  @@map("events")
+}
+
+model Favorites {
+  id        String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String @db.Uuid
+  user   Users  @relation(fields: [userId], references: [id], onUpdate: NoAction, onDelete: Cascade)
+
+  eventId String @db.Uuid
+  event   Events @relation(fields: [eventId], references: [id], onUpdate: NoAction, onDelete: Cascade)
+
+  @@id([id])
+  @@map("favorites")
+}
+
+model Carts {
+  id String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  userId String @db.Uuid
+  user   Users  @relation(fields: [userId], references: [id], onUpdate: NoAction, onDelete: Cascade)
+
+  eventId String @db.Uuid
+  event   Events @relation(fields: [eventId], references: [id], onUpdate: NoAction, onDelete: Cascade)
+
+  quantity   Int
+  rowNumber  Int
+  totalPrice Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@id([userId, eventId, id])
+  @@map("carts")
+}
+
+model Tickets {
+  id         String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  seatNumber Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  userId String @db.Uuid
+  user   Users  @relation(fields: [userId], references: [id], onUpdate: NoAction, onDelete: Cascade)
+
+  eventId String @db.Uuid
+  event   Events @relation(fields: [eventId], references: [id], onUpdate: NoAction, onDelete: Cascade)
+
+  @@id([id])
+  @@map("tickets")
+}
+
+model Testimonials {
+  id        String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  text      String
+  rank      Int
+  photo     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String @db.Uuid
+  user   Users  @relation(fields: [userId], references: [id], onUpdate: NoAction, onDelete: Cascade)
+
+  @@id([id])
+  @@map("testimonials")
+}
+
+model Contacts {
+  id        String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  phone     String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String @db.Uuid
+  user   Users  @relation(fields: [userId], references: [id], onUpdate: NoAction, onDelete: Cascade)
+
+  @@id([id])
+  @@map("id")
+}
