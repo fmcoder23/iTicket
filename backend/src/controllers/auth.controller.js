@@ -16,6 +16,7 @@ const register = async (req, res, next) => {
         });
         const { error } = schema.validate(req.body);
         if (error) {
+            console.log(error.message)
             return res.status(400).json({ message: error.message });
         }
 
@@ -39,15 +40,19 @@ const register = async (req, res, next) => {
                 }
             })
         }
-        const hashedPassword = await bcrypt.hash(password, 12);
-        await prisma.otps.create({
-            data: {
-                fullname,
-                email,
-                password: hashedPassword,
-                code,
-            }
-        })
+        else{
+            const hashedPassword = await bcrypt.hash(password, 12);
+            await prisma.otps.create({
+                data: {
+                    fullname,
+                    email,
+                    password: hashedPassword,
+                    code,
+                }
+            })
+            
+        }
+        
         await sendMail(email, code);
         res.json({ message: "Verification code has been sent to your email" })
 
@@ -59,7 +64,7 @@ const register = async (req, res, next) => {
 const verify = async (req, res, next) => {
     try {
         const { email, code } = req.body;
-
+        console.log(req.body)
         const schema = Joi.object({
             email: Joi.string().email().required(),
             code: Joi.string().min(6).required()
@@ -95,7 +100,7 @@ const verify = async (req, res, next) => {
 const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-
+        
         const schema = Joi.object({
             email: Joi.string().email().required(),
             password: Joi.string().min(5).required()
@@ -115,7 +120,7 @@ const login = async (req, res, next) => {
         }
 
         const token = createToken({ id: user.id, isAdmin: user.isAdmin })
-        res.json({ message: "User logged in successfully", token });
+        res.json({ message: "User logged in successfully", token, user });
     } catch (error) {
         next(error);
     }
@@ -144,7 +149,7 @@ const adminLogin = async (req, res, next) => {
         }
 
         const token = createToken({ id: user.id, isAdmin: user.isAdmin })
-        res.json({ message: "Admin logged in successfully", token });
+        res.json({ message: "Admin logged in successfully", token, userId: user.id });
 
     } catch (error) {
         next(error);

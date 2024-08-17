@@ -6,9 +6,10 @@ const path = require('path');
 const createEvent = async (req, res, next) => {
     try {
         const { name, description, datetime, phone1, phone2, placeId, categoryId } = req.body;
+        console.log(req.body)
         if (!req.files) {
             return res.status(400).json({ message: "Photo is required" });
-        }
+        } 
         if (req.files && !req.files.photo) {
             return res.status(400).json({ message: "Photo is required" });
         }
@@ -22,8 +23,9 @@ const createEvent = async (req, res, next) => {
             phone2: Joi.string().min(13).max(13).required(),
             placeId: Joi.string().required(),
             categoryId: Joi.string().required(),
+            
         })
-        const { error } = schema.validate(req.body);
+        const { error } = schema.validate({ name, description, datetime, phone1, phone2, placeId, categoryId });
         if (error) {
             return res.status(400).json({ message: error.message });
         }
@@ -101,6 +103,7 @@ const showEvents = async (req, res, next) => {
                 updatedAt: true,
                 place: true,
                 category: true,
+                photo:true,
             }
         });
 
@@ -142,6 +145,7 @@ const showEventById = async (req, res, next) => {
                 updatedAt: true,
                 place: true,
                 category: true,
+                photo:true,
             }
         });
         if (!event) {
@@ -171,7 +175,7 @@ const updateEvent = async (req, res, next) => {
             placeId: Joi.string(),
             categoryId: Joi.string(),
         })
-        const { error } = schema.validate(req.body);
+        const { error } = schema.validate({ name, description, datetime, phone1, phone2, placeId, categoryId });
         if (error) {
             return res.status(400).json({ message: error.message });
         }
@@ -274,7 +278,7 @@ const addToCart = async (req, res, next) => {
                 userId,
                 eventId,
                 quantity,
-                rowNumber,
+                rowNumber:+rowNumber,
                 totalPrice
             },
         });

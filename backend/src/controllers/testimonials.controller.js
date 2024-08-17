@@ -6,7 +6,7 @@ const path = require('path')
 const createTestimonial = async (req, res, next) => {
     try {
         const userId = req.user.id;
-
+        console.log(req.body)
         if (!req.files) {
             return res.status(400).json({ message: "Photo is required" });
         }
@@ -76,8 +76,9 @@ const updateTestimonial = async (req, res, next) => {
             text: Joi.string().max(230),
             rank: Joi.number().min(1).max(5),
         })
-        const { error } = schema.validate(req.body);
+        const { error } = schema.validate({text,rank});
         if (error) {
+            console.log(error.message)
             return res.status(400).json({ message: error.message });
         }
 
@@ -95,7 +96,7 @@ const updateTestimonial = async (req, res, next) => {
 
         const updatedTes = await prisma.testimonials.update({
             where: { id },
-            data: { text, rank, photo: photoName },
+            data: { text, rank:+rank, photo: photoName },
         })
         res.json({ message: "Testimonial successfully updated", data: updatedTes })
 

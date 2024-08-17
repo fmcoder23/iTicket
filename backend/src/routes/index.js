@@ -9,5 +9,7 @@ const bannersRoute = require('./banners.route')
 const testimonialsRoute = require('./testimonials.route')
 const contactsRoute = require('./contacts.route')
 const searchRoute = require('./search.route')
+const fileRoute = require('./loadFile')
+const cors = require('cors')
 
-module.exports = [authRoute, placesRoute, usersRoute, categoriesRoute, eventsRoute, cartsRoute, favoritesRoute, bannersRoute, testimonialsRoute, contactsRoute, searchRoute]
+module.exports = [fileRoute, authRoute, placesRoute, usersRoute, categoriesRoute, eventsRoute, cartsRoute, favoritesRoute, bannersRoute, testimonialsRoute, contactsRoute, searchRoute]

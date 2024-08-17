@@ -1,6 +1,7 @@
 const { checkToken } = require('../utils/jwt');
 
 const isAuth = (req, res, next) => {
+    
     if (!req.headers.token) {
         return res.status(401).json({ message: "Register please" });
     }

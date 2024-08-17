@@ -5,6 +5,6 @@ const { createContact, getContacts } = require('../controllers/contacts.controll
 const router = Router()
 
 router.post('/contacts', isAuth, createContact);
-router.get('/contacts', isAdmin, getContacts);
+router.get('/contacts',isAdmin, getContacts);
 
 module.exports = router;

@@ -7,13 +7,13 @@ const isAdmin = async (req, res, next) => {
 
     checkToken(req.headers.token, async (err, data) => {
         if (err) {
-            return res.status(401).json({ message: "Permission Denied" });
+            return res.status(402).json({ message: "Permission Denied" });
         }
 
         req.user = data;
 
         if (!data.isAdmin) {
-            return res.status(401).json({ message: "Permission Denied" });
+            return res.status(403).json({ message: "Permission Denied" });
         }
 
         next();

@@ -48,7 +48,7 @@ const fillPdfTemplate = async (pdfBytes, ticketDetails) => {
         x: 220,
         y: firstPage.getHeight() - 30, // Invert y-coordinate
         size: 12,
-        font: helveticaFont,
+        font: helveticaFont, 
         color: rgb(r2, g2, b2),
     });
 
@@ -286,9 +286,24 @@ const removeCart = async (req, res, next) => {
     }
 };
 
+const createCart = async (req, res, next) => {
+    try {
+        const userId = req.user.id
+        const { eventId, quantity, rowNumber } = req.body
+        const cart = await prisma.carts.create({
+            userId, eventId, quantity, rowNumber
+        })
+        res.json({ message: 'Cart created', data: cart })
+    }
+    catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     getCart,
     updateCart,
     removeCart,
-    buy
+    buy,
+    createCart
 };

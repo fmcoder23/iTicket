@@ -7,7 +7,7 @@ const createContact = async (req, res, next) => {
         const { phone, message } = req.body;
 
         const schema = Joi.object({
-            phone: Joi.string().min(13).max(13).required(),
+            phone: Joi.string().required(),
             message: Joi.string().required(),
         })
         const { error } = schema.validate(req.body);

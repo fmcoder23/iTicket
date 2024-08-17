@@ -25,10 +25,10 @@ const createPlace = async (req, res, next) => {
         const newPlace = await prisma.places.create({
             data: {
                 name,
-                rows,
-                columns,
-                priceDifByRow,
-                firstRowPrice,
+                rows:+rows,
+                columns:+columns,
+                priceDifByRow:+priceDifByRow,
+                firstRowPrice:+firstRowPrice,
             },
         })
 
@@ -69,10 +69,10 @@ const updatePlace = async (req, res, next) => {
             where: { id },
             data: {
                 name,
-                rows,
-                columns,
-                priceDifByRow,
-                firstRowPrice,
+                rows:+rows,
+                columns:+columns,
+                priceDifByRow:+priceDifByRow,
+                firstRowPrice:+firstRowPrice,
             },
         })
         res.json({ message: "Place successfully updated", data: updatedPlace })

@@ -31,6 +31,7 @@ const createCategory = async (req, res, next) => {
 }
 
 const showCategory = async (req, res, next) => {
+
     try {
         const categories = await prisma.categories.findMany({
             select: {
@@ -41,10 +42,12 @@ const showCategory = async (req, res, next) => {
                 events: true,
             }
         })
-        res.json({ data: categories })
+        prisma.categories.findMany().then(()=>res.json({ data: categories }))
+        
     } catch (error) {
+        
         next(error);
-    }
+    } 
 }
 
 const showCategoryById = async (req, res, next) => {
